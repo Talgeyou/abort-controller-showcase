@@ -14,26 +14,16 @@ export function TestsList({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const abortController = new AbortController();
-
     setLoading(true);
 
-    getTests({ signal: abortController.signal })
+    getTests()
       .then((data) => {
         setTests(data);
         setLoading(false);
       })
-      .catch((error) => {
-        if (error === "Request aborted") {
-          console.log("getTests request aborted");
-
-          return;
-        }
-
-        throw error;
+      .finally(() => {
+        setLoading(false);
       });
-
-    return () => abortController.abort();
   }, []);
 
   return (

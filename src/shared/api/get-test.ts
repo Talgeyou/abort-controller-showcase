@@ -1,7 +1,7 @@
 import { Test, TESTS } from "./tests";
 
-export async function getTest(id: string, options?: { signal?: AbortSignal }) {
-  return new Promise<Test>((resolve, reject) => {
+export async function getTest(id: string) {
+  return new Promise<Test>((resolve) => {
     switch (id) {
       case "1":
         setTimeout(() => {
@@ -16,9 +16,5 @@ export async function getTest(id: string, options?: { signal?: AbortSignal }) {
       default:
         resolve(TESTS.find((test) => test.id === id)!);
     }
-
-    options?.signal?.addEventListener("abort", () => {
-      reject("Request aborted");
-    });
   });
 }

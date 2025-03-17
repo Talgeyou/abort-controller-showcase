@@ -8,26 +8,15 @@ export function TestDetails({ testId }: { testId: string }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const abortController = new AbortController();
-
     setLoading(true);
 
-    getTest(testId, { signal: abortController.signal })
+    getTest(testId)
       .then((data) => {
         setTest(data);
-        setLoading(false);
       })
-      .catch((error) => {
-        if (error === "Request aborted") {
-          console.log("getTest request aborted");
-
-          return;
-        }
-
-        throw error;
+      .finally(() => {
+        setLoading(false);
       });
-
-    return () => abortController.abort();
   }, [testId]);
 
   return (
