@@ -1,54 +1,41 @@
-# React + TypeScript + Vite
+# AbortController showcase
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project shows the reason why you should always use AbortController if your request is made inside ```useEffect```
 
-Currently, two official plugins are available:
+## How to use
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Clone the repo
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```sh
+$ git clone git@github.com:Talgeyou/abort-controller-showcase.git
+$ cd abort-controller-showcase
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+### Install dependencies
+```sh
+$ pnpm install
 ```
+
+### Perfect implementation
+
+1. Switch to ```main``` branch
+```sh
+$ git checkout main
+```
+2. Start the application
+```sh
+$ pnpm dev
+```
+
+### Race condition problem illustration
+
+1. Switch to ```race-condition``` branch
+```sh
+$ git checkout race-condition
+```
+2. Start the application
+```sh
+$ pnpm dev
+```
+3. Visit the link that vite will print in the console
+4. Click on the test2 and instantly click on the test1. After this the test1 details will flicker on the right side of the page and then test2 details will be shown after 2 seconds. This is wrong behavior since we want to see test1 details because it's selected now
